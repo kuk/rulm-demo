@@ -49,7 +49,7 @@ def api_complete(prompt, model='saiga-7b-q4', max_tokens=128, temperature=0.2):
         # {'n_past': None, 'n_tokens': None, 'text': 'ы'}
 
 
-with gr.Blocks() as demo:
+with gr.Blocks(title='Демо-стенд для русских Instruct-моделей') as demo:
     with gr.Row():
         with gr.Column(scale=3):
             text = gr.Textbox(lines=20, show_label=False)
