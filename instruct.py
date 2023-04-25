@@ -33,6 +33,11 @@ EXAMPLES = [
 ]
 
 
+
+class ApiError(Exception):
+    pass
+
+
 def api_complete(prompt, model='saiga-7b-q4', max_tokens=128, temperature=0.2):
     response = requests.post(
         'https://api.rulm.alexkuk.ru/v1/complete',
@@ -44,13 +49,15 @@ def api_complete(prompt, model='saiga-7b-q4', max_tokens=128, temperature=0.2):
         },
         stream=True
     )
-    for line in response.iter_lines():
-        yield json.loads(line)
+    if response.status_code != 200:
+        raise ApiError(response.text)
 
-        # {'n_past': 64, 'n_tokens': 78, 'text': None}
-        # {'n_past': 78, 'n_tokens': 78, 'text': None}
-        # {'n_past': None, 'n_tokens': None, 'text': 'В'}
-        # {'n_past': None, 'n_tokens': None, 'text': 'ы'}
+    for line in response.iter_lines():
+        item = json.loads(line)
+        error = item.get('error')
+        if error:
+            raise ApiError(error)
+        yield item
 
 
 with gr.Blocks(title='Демо-стенд для русских Instruct-моделей') as demo:
