@@ -63,7 +63,7 @@ def api_complete(prompt, model='saiga-7b-q4', max_tokens=128, temperature=0.2):
 with gr.Blocks(title='Демо-стенд для русских Instruct-моделей') as demo:
     with gr.Row():
         with gr.Column(scale=3):
-            text = gr.Textbox(lines=20, show_label=False)
+            text = gr.Textbox(lines=30, show_label=False)
             examples = gr.Examples(
                 examples=EXAMPLES,
                 inputs=[text],
@@ -73,11 +73,11 @@ with gr.Blocks(title='Демо-стенд для русских Instruct-мод�
         with gr.Column():
             model = gr.Dropdown(MODELS, value='saiga-7b-q4', show_label=False)
             temperature = gr.Slider(
-                0, 1, step=0.1, value=0.2,
+                0, 1, value=0.2,
                 label='temperature'
             )
             max_tokens = gr.Slider(
-                1, 2000, step=1, value=128,
+                1, 2000, step=1, value=256,
                 label='max_tokens'
             )
             submit = gr.Button('Отправить', variant='primary')
