@@ -91,21 +91,25 @@ with gr.Blocks(title='Демо-стенд для русских Instruct-мод�
         }
 
     def submit_click(text, model, temperature, max_tokens, progress=gr.Progress()):
-        items = api_complete(
-            prompt=text, model=model,
-            temperature=temperature, max_tokens=max_tokens
-        )
-
-        output = text
-        for item in items:
-            if item['text']:
-                output += item['text']
-                yield output
-            else:
-                progress(
-                    (item['n_past'], item['n_tokens']),
-                    desc='Обрабатывает промпт'
-                )
+        try:
+            items = api_complete(
+                prompt=text, model=model,
+                temperature=temperature, max_tokens=max_tokens
+            )
+            output = text + '\n'
+            for item in items:
+                text = item.get('text')
+                prompt_progress = item.get('prompt_progress')
+                if text:
+                    output += text
+                    yield output
+                else:
+                    progress(
+                        prompt_progress,
+                        desc='Обрабаmaтывает промпт'
+                    )
+        except ApiError as error:
+            raise gr.Error(str(error))
 
     model.change(
         fn=model_change,
