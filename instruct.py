@@ -23,6 +23,14 @@ MODEL_PARAMS = {
         'temperature': 0.2,
         'max_tokens': 2000,
     },
+    'saiga-13b-q4': {
+        'temperature': 0.2,
+        'max_tokens': 2000,
+    },
+    'saiga-30b-q4': {
+        'temperature': 0.2,
+        'max_tokens': 2000,
+    },
 }
 MODELS = list(MODEL_PARAMS)
 
