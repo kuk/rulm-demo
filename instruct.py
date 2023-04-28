@@ -109,7 +109,7 @@ with gr.Blocks(title='Демо-стенд для русских Instruct-мод�
                 else:
                     progress(
                         prompt_progress,
-                        desc='Обрабаmaтывает промпт'
+                        desc='Обрабатывает промпт'
                     )
         except ApiError as error:
             raise gr.Error(str(error))
