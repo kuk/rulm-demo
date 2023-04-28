@@ -1,10 +1,14 @@
 
+import os
 import json
 
 import requests
 
 import gradio as gr
 
+
+HOST = os.getenv('HOST', 'localhost')
+PORT = int(os.getenv('PORT', 8080))
 
 MODEL_PARAMS = {
     'ru-alpaca-7b-q4': {
@@ -31,7 +35,6 @@ EXAMPLES = [
     'Напиши программу для нахождения n-го числа Фибоначчи',
     'Реализуй алгоритм двоичного поиска в отсортированном массиве на Python',
 ]
-
 
 
 class ApiError(Exception):
@@ -128,4 +131,7 @@ demo.queue(
     concurrency_count=2,
     api_open=False
 )
-demo.launch()
+demo.launch(
+    server_name=HOST,
+    server_port=PORT
+)
