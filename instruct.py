@@ -11,15 +11,7 @@ HOST = os.getenv('HOST', 'localhost')
 PORT = int(os.getenv('PORT', 8080))
 
 MODEL_PARAMS = {
-    'ru-alpaca-7b-q4': {
-        'temperature': 0.2,
-        'max_tokens': 512,
-    },
     'saiga-7b-q4': {
-        'temperature': 0.2,
-        'max_tokens': 2000,
-    },
-    'saiga-7b-v2-q4': {
         'temperature': 0.2,
         'max_tokens': 2000,
     },
